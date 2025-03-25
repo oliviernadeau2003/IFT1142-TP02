@@ -23,5 +23,5 @@ app.get("/", (req, res) => {
 app.get("/json", (req, res) => {
   res.header("Content-type", "application/json");
   res.header("Charset", "utf8");
-  res.sendFile(__dirname + "/app/serveur/donnees/fleurs.json");
+  res.sendFile(__dirname + "/app/serveur/donnees/livres.json");
 });
