@@ -1,0 +1,14 @@
+{
+    "categories": [],
+    "livres": [
+        {
+            "id": 1,
+            "titre": "Une aventure d'Astérix le gaulois. Le devin",
+            "idAuteur": 11,
+            "annee": 1972,
+            "pages": 48,
+            "categorie": "bandes dessinées",
+            "pochette": "images/pochettes/nom_image.extension"
+        }
+    ]
+}
