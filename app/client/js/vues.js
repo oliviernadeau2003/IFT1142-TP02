@@ -1,7 +1,9 @@
 const creerCard = (livre) => {
+    console.log(livre.pochette);
     return `
         <div class="card" style="width: 18rem;">
-            <span>${livre.titre}</span>
+            <h4>${livre.titre}</h4>
+            <img src="http://localhost:3000/pochettes/${livre.pochette}"></img>
         </div>
     `;
 }

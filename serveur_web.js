@@ -25,3 +25,7 @@ app.get("/json", (req, res) => {
   res.header("Charset", "utf8");
   res.sendFile(__dirname + "/app/serveur/donnees/livres.json");
 });
+
+app.get("/pochettes/:livre", (req, res) => {
+  res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.livre}`);
+});

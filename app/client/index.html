@@ -31,7 +31,7 @@
                             <a class="nav-link active" aria-current="page" href="/">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#idModalEnreg">[<i
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#idModalLivre">[<i
                                     class="bi bi-plus"></i>Ajouter]</a>
                         </li>
                         <li class="nav-item">
@@ -39,7 +39,8 @@
                                 href="#">Rechercher</a>
                         </li>
                         <li class="nav-item">
-                            <select class="form-select" id="selCategs" name="selCategs" onChange="reqListerParCateg();">
+                            <select class="form-select" id="selCategs" name="selCategs"
+                                onChange="reqLAfficherParCateg();">
                                 <option selected>Catégorie</option>
                                 <option>Année</option>
                                 <option>Auteur</option>
@@ -59,77 +60,54 @@
             <div id="contenu"></div>
             <!-- Modal enregistrer un livre -->
 
-            <div class="modal fade" id="idModalEnreg" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="idModalLivre" tabindex="-1" aria-labelledby="modalLivreLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 bg-titre-modal" id="exampleModalLabel">Ajouter un livre
+                            <h1 class="modal-title fs-5 bg-titre-modal" id="modalLivreLabel">Ajouter / Modifier un livre
                             </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="row" method="POST" action="serveur/enregistrer.php"
-                                enctype="multipart/form-data" onSubmit="return validerFormEnreg();">
-                                <div class="col-md-6">
-                                    <label for="prenom" class="form-label">Prénom</label>
-                                    <input type="text" class="form-control is-valid" id="prenom" name="prenom" required>
+                            <form class="row" method="POST" action="serveur/enregistrer_livre.php"
+                                enctype="multipart/form-data" onSubmit="return validerFormLivre();">
+                                <div class="col-md-12">
+                                    <label for="titre" class="form-label">Titre</label>
+                                    <input type="text" class="form-control is-valid" id="titre" name="titre" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="nom" class="form-label">Nom</label>
-                                    <input type="text" class="form-control is-valid" id="nom" name="nom" required>
+                                    <label for="idAuteur" class="form-label">ID Auteur</label>
+                                    <input type="number" class="form-control is-valid" id="idAuteur" name="idAuteur"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="annee" class="form-label">Année</label>
+                                    <input type="number" class="form-control is-valid" id="annee" name="annee" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pages" class="form-label">Nombre de pages</label>
+                                    <input type="number" class="form-control is-valid" id="pages" name="pages" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="categorie" class="form-label">Catégorie</label>
+                                    <input type="text" class="form-control is-valid" id="categorie" name="categorie"
+                                        required>
                                 </div>
                                 <div class="col-md-12">
-                                    <label for="courriel" class="form-label">Courriel</label>
-                                    <input type="email" class="form-control is-valid" id="courriel" name="courriel"
-                                        required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="pass" class="form-label">Mot de passe</label>
-                                    <input type="password" class="form-control is-valid" id="pass" name="pass" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="cpass" class="form-label">Confirmer le mot de passe</label>
-                                    <input type="password" class="form-control is-valid" id="cpass" name="cpass"
-                                        required>
-                                </div>
-                                <br />
-                                <span class="msg-stat">Pour des raisons statistiques</span>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sexe" value="F" id="idf">
-                                    <label class="form-check-label" for="idf">
-                                        Féminin
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sexe" value="M" id="idm">
-                                    <label class="form-check-label" for="idm">
-                                        Masculin
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sexe" value="A" id="ida">
-                                    <label class="form-check-label" for="ida">
-                                        Autre
-                                    </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="daten" class="form-label">Date de naissance</label>
-                                    <input type="date" class="form-control is-valid" id="daten" name="daten">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="photo" class="form-label">Photo</label>
-                                    <input type="file" class="form-control is-valid" id="photo" name="photo">
+                                    <label for="pochette" class="form-label">Pochette</label>
+                                    <input type="file" class="form-control is-valid" id="pochette" name="pochette">
                                 </div>
                                 <br>
-                                <div class="col-12 btn-enreg">
-                                    <input class="btn btn-primary" type="submit">Enregistrer</input>
+                                <div class="col-12 btn-enreg mt-3">
+                                    <input class="btn btn-primary" type="submit" value="Enregistrer">
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- Fin du modal enregistrer un livre -->
 
         </main>

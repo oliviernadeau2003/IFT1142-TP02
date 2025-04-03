@@ -1,8 +1,5 @@
 // Olivier Nadeau - IFT1142 Hiver 2025
-// main.js - 15 Février
-
-// TODO:
-// - Revoir affichage *
+// main.js - 02 Avril
 
 import { afficherLivres, ajouterLivre, modifierLivre, supprimerLivre, rechercherParCategorie, rechercherParAnnee, rechercherParAuteur } from './modules/services.js';
 import { tabLivres as livres } from './modules/data/livres.js';

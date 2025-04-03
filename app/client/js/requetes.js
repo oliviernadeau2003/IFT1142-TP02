@@ -19,7 +19,7 @@ const reqLAfficherParCateg = async () => {
     const posChoisie = selCategs.selectedIndex;
     const optionChoisie = selCategs.options[posChoisie].text;
 
-    const url = `/json/:${optionChoisie}`;
+    const url = `/json/:${optionChoisie.toString()}`;
     try {
         const reponse = await fetch(url);
         if (reponse.ok) {
