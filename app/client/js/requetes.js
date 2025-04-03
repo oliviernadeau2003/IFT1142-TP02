@@ -4,7 +4,6 @@ const reqListeLivre = async () => {
         const reponse = await fetch(url);
         if (reponse.ok) {
             const donneesLivres = await reponse.json();
-            console.log(donneesLivres);
             afficherLivresParCards(donneesLivres);
         } else {
             throw new Exception("Problème de chargement des livres!");

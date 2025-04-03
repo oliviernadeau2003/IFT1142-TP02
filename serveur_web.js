@@ -29,3 +29,5 @@ app.get("/json", (req, res) => {
 app.get("/pochettes/:livre", (req, res) => {
   res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.livre}`);
 });
+
+app.get("/json/ajouter");

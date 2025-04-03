@@ -5,10 +5,10 @@ const creerCard = (livre) => {
                 <img src="http://localhost:3000/pochettes/${livre.pochette}"></img>
 
                 <div class="d-flex flex-row gap-2 mx-2 justify-content-around my-3">
-                    <a href="" class="edit-button" data-bs-toggle="modal" data-bs-target="#IDMODAL"><i
+                    <a href="" class="edit-button" data-bs-toggle="modal" data-bs-target="#idModalModifierLivre"><i
                             class="bi bi-pencil"></i></a>
-                    <a href="" class="delete-button" data-bs-toggle="modal" data-bs-target="#IDMODAL"><i
-                            class="bi bi-trash3"></i></a>
+                    <button class="delete-button" id="liveToastBtn" onclick="afficherToastConfimation(${livre.id})"><i
+                            class="bi bi-trash3"></i></button>
                 </div>
 
             </div>
@@ -40,3 +40,10 @@ const afficherLivreParCategorie = (listeLivres) => {
     }
     document.getElementById("contenu").innerHTML = liste;
 };
+
+const afficherToastConfimation = (idLivre) => {
+    const toastLiveExample = document.getElementById('liveToast')
+
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+    toastBootstrap.show()
+}

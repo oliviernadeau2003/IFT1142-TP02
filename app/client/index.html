@@ -31,8 +31,8 @@
                             <a class="nav-link active" aria-current="page" href="/">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#idModalLivre">[<i
-                                    class="bi bi-plus"></i>Ajouter]</a>
+                            <a class="nav-link" href="#" data-bs-toggle="modal"
+                                data-bs-target="#idModalAjouterLivre">[<i class="bi bi-plus"></i>Ajouter]</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" onClick="reqListeLivre();"
@@ -57,15 +57,33 @@
 
         <!-- Contenu de la page -->
         <main class="container">
+
+            <!-- Toast confirmer la suppression -->
+
+            <div class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999;">
+                <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-body">
+                        <i class="bi bi-trash3"></i> Voulez-vous vraiment supprimer ce livre ?
+                        <div class="mt-2 pt-2 border-top">
+                            <button type="button" class="btn btn-primary btn-sm">Oui</button>
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="toast">Annuler</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fin toast confirmer la suppression -->
+
             <div id="contenu"></div>
             <!-- Modal enregistrer un livre -->
 
-            <div class="modal fade" id="idModalLivre" tabindex="-1" aria-labelledby="modalLivreLabel"
+            <div class="modal fade" id="idModalAjouterLivre" tabindex="-1" aria-labelledby="modalLivreLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5 bg-titre-modal" id="modalLivreLabel">Ajouter / Modifier un livre
+                            <h1 class="modal-title fs-5 bg-titre-modal" id="modalLivreLabel">Ajouter un livre
                             </h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
@@ -109,6 +127,58 @@
             </div>
 
             <!-- Fin du modal enregistrer un livre -->
+
+            <!-- Modal modifier un livre -->
+
+            <div class="modal fade" id="idModalModifierLivre" tabindex="-1" aria-labelledby="modalLivreLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 bg-titre-modal" id="modalLivreLabel">Modifier un livre
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="row" method="POST" action="" enctype="multipart/form-data"
+                                onSubmit="return validerFormLivre();">
+                                <div class="col-md-12">
+                                    <label for="titre" class="form-label">Titre</label>
+                                    <input type="text" class="form-control is-valid" id="titre" name="titre" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="idAuteur" class="form-label">ID Auteur</label>
+                                    <input type="number" class="form-control is-valid" id="idAuteur" name="idAuteur"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="annee" class="form-label">Année</label>
+                                    <input type="number" class="form-control is-valid" id="annee" name="annee" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pages" class="form-label">Nombre de pages</label>
+                                    <input type="number" class="form-control is-valid" id="pages" name="pages" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="categorie" class="form-label">Catégorie</label>
+                                    <input type="text" class="form-control is-valid" id="categorie" name="categorie"
+                                        required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="pochette" class="form-label">Pochette</label>
+                                    <input type="file" class="form-control is-valid" id="pochette" name="pochette">
+                                </div>
+                                <br>
+                                <div class="col-12 btn-enreg mt-3">
+                                    <input class="btn btn-primary" type="submit" value="Enregistrer">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fin du modal modifier un livre -->
 
         </main>
     </body>
