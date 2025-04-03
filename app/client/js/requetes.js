@@ -32,4 +32,21 @@ const reqLAfficherParCateg = async () => {
     }
 }
 
+const reqSupprimerLivre = async (idLivre) => {
+    console.log("HELLO WORLD");
+    const url = `/json/supprimer/:${idLivre}`;
+    try {
+        const reponse = await fetch(url);
+        if (reponse.ok) {
+            alert("Suppression effectuée.")
+            const ToastConfirmation = document.getElementById('ToastConfirmation');
+        } else {
+            alert("Erreur lors de la suppression.")
+            throw new Exception("Problème de chargement des Livres!");
+        }
+    } catch (e) {
+        alert(e.message);
+    }
+}
+
 function validerFormLivre() { }

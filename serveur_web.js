@@ -30,4 +30,10 @@ app.get("/pochettes/:livre", (req, res) => {
   res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.livre}`);
 });
 
-app.get("/json/ajouter");
+app.get("/json/ajouter", (req, res) => {
+
+});
+
+app.get("/json/supprimer/:idlivre", (req, res) => {
+  res.status(200).end();
+});

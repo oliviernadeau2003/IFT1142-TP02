@@ -7,7 +7,7 @@ const creerCard = (livre) => {
                 <div class="d-flex flex-row gap-2 mx-2 justify-content-around my-3">
                     <a href="" class="edit-button" data-bs-toggle="modal" data-bs-target="#idModalModifierLivre"><i
                             class="bi bi-pencil"></i></a>
-                    <button class="delete-button" id="liveToastBtn" onclick="afficherToastConfimation(${livre.id})"><i
+                    <button class="delete-button" id="liveToastBtn" onclick="afficherToastConfirmation(${livre.id})"><i
                             class="bi bi-trash3"></i></button>
                 </div>
 
@@ -41,9 +41,20 @@ const afficherLivreParCategorie = (listeLivres) => {
     document.getElementById("contenu").innerHTML = liste;
 };
 
-const afficherToastConfimation = (idLivre) => {
-    const toastLiveExample = document.getElementById('liveToast')
+const afficherToastConfirmation = (idLivre) => {
+    const ToastConfirmation = document.getElementById('ToastConfirmation');
+    const toastBody = ToastConfirmation.querySelector('.toast-body');
 
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-    toastBootstrap.show()
-}
+    // Update toast message with the book ID (or any other data)
+    toastBody.innerHTML = `
+        <i class="bi bi-trash3"></i> Voulez-vous vraiment supprimer ce livre (ID: ${idLivre}) ?
+        <div class="mt-2 pt-2 border-top">
+            <button type="button" class="btn btn-primary btn-sm" onclick="reqSupprimerLivre(${idLivre})">Oui</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Annuler</button>
+        </div>
+    `;
+
+    // Show the toast
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(ToastConfirmation);
+    toastBootstrap.show();
+};
