@@ -1,10 +1,17 @@
 const creerCard = (livre) => {
-    console.log(livre.pochette);
     return `
         <div class="card" style="width: 18rem;">
-            <h4>${livre.titre}</h4>
-            <img src="http://localhost:3000/pochettes/${livre.pochette}"></img>
-        </div>
+                <h4>${livre.titre}</h4>
+                <img src="http://localhost:3000/pochettes/${livre.pochette}"></img>
+
+                <div class="d-flex flex-row gap-2 mx-2 justify-content-around my-3">
+                    <a href="" class="edit-button" data-bs-toggle="modal" data-bs-target="#IDMODAL"><i
+                            class="bi bi-pencil"></i></a>
+                    <a href="" class="delete-button" data-bs-toggle="modal" data-bs-target="#IDMODAL"><i
+                            class="bi bi-trash3"></i></a>
+                </div>
+
+            </div>
     `;
 }
 
