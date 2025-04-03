@@ -32,3 +32,5 @@ const reqLAfficherParCateg = async () => {
         alert(e.message);
     }
 }
+
+function validerFormLivre() { }
