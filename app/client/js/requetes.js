@@ -1,3 +1,11 @@
+
+
+//* - Fonctions CRUD -
+
+//* Create
+
+
+//* Read
 const reqListeLivre = async () => {
     const url = "/json";
     try {
@@ -32,8 +40,15 @@ const reqLAfficherParCateg = async () => {
     }
 }
 
+//* Update
+
+
+function validerFormLivre() { }
+
+
+//* Delete
 const reqSupprimerLivre = async (idLivre) => {
-    const url = `/json/supprimer/:${idLivre}`;
+    const url = `/json/supprimer/${idLivre}`;
     try {
         const reponse = await fetch(url);
         if (reponse.ok) {
@@ -42,6 +57,8 @@ const reqSupprimerLivre = async (idLivre) => {
             const ToastConfirmation = document.getElementById('ToastConfirmation');
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(ToastConfirmation);
             toastBootstrap.hide();
+
+            reqListeLivre();
         } else {
             alert("Erreur lors de la suppression.")
             throw new Exception("Problème de chargement des Livres!");
@@ -50,5 +67,3 @@ const reqSupprimerLivre = async (idLivre) => {
         alert(e.message);
     }
 }
-
-function validerFormLivre() { }

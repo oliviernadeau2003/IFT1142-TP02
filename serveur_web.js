@@ -2,7 +2,7 @@
 const http = require("http");
 const express = require("express");
 const bodyParser = require("body-parser");
-const { listerLivre } = require("./app/serveur/src/modules/services");
+const { supprimerLivre } = require("./app/serveur/src/modules/services");
 
 const app = express();
 const port = 3000;
@@ -21,16 +21,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/app/client/index.html");
 });
 
-app.get("/json", (req, res) => {
-  res.header("Content-type", "application/json");
-  res.header("Charset", "utf8");
-  res.sendFile(__dirname + "/app/serveur/donnees/livres.json");
-});
-
-app.get("/pochettes/:livre", (req, res) => {
-  res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.livre}`);
-});
-
+//* Create
 app.get("/json/ajouter", (req, res) => {
 
   const newLivre = {
@@ -44,36 +35,25 @@ app.get("/json/ajouter", (req, res) => {
   }
 });
 
-app.get("/json/supprimer/:idlivre", (req, res) => {
-  // let indexLivre = tabLivres.findIndex((livre) => livre.id === req);
-  console.log(listerLivre());
-  res.end(200);
+// * Read
+app.get("/json", (req, res) => {
+  res.header("Content-type", "application/json");
+  res.header("Charset", "utf8");
+  res.sendFile(__dirname + "/app/serveur/donnees/livres.json");
 });
 
-// export const supprimerLivre = (tabLivres) => {
-//   // Récupérer l'index
-//   let idLivre = parseInt(question('\nId du livre à supprimer : '));
-//   let indexLivre = tabLivres.findIndex((livre) => livre.id === idLivre);
+app.get("/pochettes/:idLivre", (req, res) => {
+  res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.idLivre}`);
+});
 
-//   // Si le livre n'existe pas
-//   if (indexLivre === -1) {
-//     console.log('\nLivre introuvable.');
-//     return;
-//   }
+//* Update
 
-//   let livre = tabLivres[indexLivre]
-//   afficherDetailsLivre(livre);
-
-//   console.log('\nVoulez-vous vraiment supprimer ce livre ?');
-
-//   // Confirmation du choix
-//   let choix = question("\nVotre choix (O - N) : ");
-//   if (choix.toUpperCase() === 'N') {
-//     console.log('\nSuppression annulée');
-//     return;
-//   }
-
-//   // Suppression du livre
-//   tabLivres.splice(indexLivre, 1);
-//   console.log('\nLivre supprimer avec succès');
-// }
+//* Supprimer
+app.get("/json/supprimer/:idLivre", (req, res) => {
+  try {
+    supprimerLivre(req.params.idLivre);
+    res.status(200).end();
+  } catch (err) {
+    res.status(404).end();
+  }
+});

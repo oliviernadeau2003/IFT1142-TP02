@@ -2,7 +2,17 @@ const creerCard = (livre) => {
     return `
         <div class="card" style="width: 18rem;">
                 <h4>${livre.titre}</h4>
+                <hr>
                 <img src="http://localhost:3000/pochettes/${livre.pochette}"></img>
+
+                <div class="container">
+                    <hr>
+                    <span>idAuteur : ${livre.idAuteur}</span><br>
+                    <span>Année : ${livre.annee}</span><br>
+                    <span>${livre.pages} pages</span><br>
+                    <span class="capitalize">${capitalize(livre.categorie)}</span><br>
+                    <hr>
+                </div>
 
                 <div class="d-flex flex-row gap-2 mx-2 justify-content-around my-3">
                     <a href="" class="edit-button" data-bs-toggle="modal" data-bs-target="#idModalModifierLivre"><i
@@ -58,3 +68,8 @@ const afficherToastConfirmation = (idLivre) => {
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(ToastConfirmation);
     toastBootstrap.show();
 };
+
+const capitalize = (str) => {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
