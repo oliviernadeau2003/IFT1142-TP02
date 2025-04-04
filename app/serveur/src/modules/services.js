@@ -3,171 +3,176 @@
 
 //* Fonctions CRUD -
 
-import { question } from "readline-sync";
+// const listerLivre = () => {
+//     return "Hello World";
+// }
 
-//* Read
-export const afficherLivres = (tabLivres, categorie) => {
+function listerLivre() { return "Hello World"; }
+module.exports = { listerLivre };
 
-    // Afficher l'entête
-    if (!categorie) {   // Avec catégorie
-        console.log('\n');
-        console.log("LISTE DES LIVRES".padStart(63));
-        console.log("ID   Titre".padEnd(65) + "IdAuteur  Année  Pages  Catégorie");
-    } else {            // Sans catégorie
-        console.log('\n');
-        console.log(`LISTE DES LIVRES DE LA CATÉGORIE ${categorie.toUpperCase()}`.padStart(63));
-        console.log("ID   Titre".padEnd(65) + "IdAuteur  Année  Pages");
-    }
-    console.log("-".repeat(105));
+// //* Read
+// export const afficherLivres = (tabLivres, categorie) => {
 
-    // Afficher données du livre
-    if (!categorie) {   // Avec catégorie
-        tabLivres.forEach((livre) => {
-            console.log(
-                livre.id.toString().padEnd(5) +
-                livre.titre.padEnd(60) +
-                livre.idAuteur.toString().padEnd(10) +
-                livre.annee.toString().padEnd(7) +
-                livre.pages.toString().padEnd(7) +
-                livre.categorie.padEnd(15)
-            );
-        });
-    } else {    // Sans catégorie
-        tabLivres.forEach((livre) => {
-            console.log(
-                livre.id.toString().padEnd(5) +
-                livre.titre.padEnd(60) +
-                livre.idAuteur.toString().padEnd(10) +
-                livre.annee.toString().padEnd(7) +
-                livre.pages.toString().padEnd(7)
-            );
-        });
-    }
+//     // Afficher l'entête
+//     if (!categorie) {   // Avec catégorie
+//         console.log('\n');
+//         console.log("LISTE DES LIVRES".padStart(63));
+//         console.log("ID   Titre".padEnd(65) + "IdAuteur  Année  Pages  Catégorie");
+//     } else {            // Sans catégorie
+//         console.log('\n');
+//         console.log(`LISTE DES LIVRES DE LA CATÉGORIE ${categorie.toUpperCase()}`.padStart(63));
+//         console.log("ID   Titre".padEnd(65) + "IdAuteur  Année  Pages");
+//     }
+//     console.log("-".repeat(105));
 
-    console.log("-".repeat(105));
-    console.log(`\nNombre de livres : ${tabLivres.length}`);
-};
+//     // Afficher données du livre
+//     if (!categorie) {   // Avec catégorie
+//         tabLivres.forEach((livre) => {
+//             console.log(
+//                 livre.id.toString().padEnd(5) +
+//                 livre.titre.padEnd(60) +
+//                 livre.idAuteur.toString().padEnd(10) +
+//                 livre.annee.toString().padEnd(7) +
+//                 livre.pages.toString().padEnd(7) +
+//                 livre.categorie.padEnd(15)
+//             );
+//         });
+//     } else {    // Sans catégorie
+//         tabLivres.forEach((livre) => {
+//             console.log(
+//                 livre.id.toString().padEnd(5) +
+//                 livre.titre.padEnd(60) +
+//                 livre.idAuteur.toString().padEnd(10) +
+//                 livre.annee.toString().padEnd(7) +
+//                 livre.pages.toString().padEnd(7)
+//             );
+//         });
+//     }
 
-//* Create
-export const ajouterLivre = (tabLivres) => {
+//     console.log("-".repeat(105));
+//     console.log(`\nNombre de livres : ${tabLivres.length}`);
+// };
 
-    console.log('\nEntrée les données du nouveau livre :');
-    // Récuperer les données
-    let id = tabLivres[tabLivres.length - 1].id + 1;
-    let titre = question('Titre : ');
-    let idAuteur = question('idAuteur : ');
-    let annee = question('Année : ');
-    let pages = question('Pages : ');
-    let categorie = question('Catégorie : ');
+// //* Create
+// export const ajouterLivre = (tabLivres) => {
 
-    // Créer un nouveau livre
-    const nouveauLivre = {
-        id: parseInt(id),
-        titre: titre,
-        idAuteur: parseInt(idAuteur) || '',
-        annee: parseInt(annee) || '',
-        pages: parseInt(pages) || '',
-        categorie: categorie
-    }
+//     console.log('\nEntrée les données du nouveau livre :');
+//     // Récuperer les données
+//     let id = tabLivres[tabLivres.length - 1].id + 1;
+//     let titre = question('Titre : ');
+//     let idAuteur = question('idAuteur : ');
+//     let annee = question('Année : ');
+//     let pages = question('Pages : ');
+//     let categorie = question('Catégorie : ');
 
-    // Ajouter le nouveau livre a la liste
-    tabLivres.push(nouveauLivre);
-    console.log('\nLivre ajouté avec succès');
-}
+//     // Créer un nouveau livre
+//     const nouveauLivre = {
+//         id: parseInt(id),
+//         titre: titre,
+//         idAuteur: parseInt(idAuteur) || '',
+//         annee: parseInt(annee) || '',
+//         pages: parseInt(pages) || '',
+//         categorie: categorie
+//     }
 
-//* Update
-export const modifierLivre = (tabLivres) => {
-    // Récupérer l'index
-    let idLivre = parseInt(question('\nId du livre à modifier : '));
-    let indexLivre = tabLivres.findIndex((livre) => livre.id === idLivre);
+//     // Ajouter le nouveau livre a la liste
+//     tabLivres.push(nouveauLivre);
+//     console.log('\nLivre ajouté avec succès');
+// }
 
-    // Si le livre n'existe pas
-    if (indexLivre === -1) {
-        console.log('\nLivre introuvable.');
-        return;
-    }
+// //* Update
+// export const modifierLivre = (tabLivres) => {
+//     // Récupérer l'index
+//     let idLivre = parseInt(question('\nId du livre à modifier : '));
+//     let indexLivre = tabLivres.findIndex((livre) => livre.id === idLivre);
 
-    let livre = tabLivres[indexLivre]
-    afficherDetailsLivre(livre);
+//     // Si le livre n'existe pas
+//     if (indexLivre === -1) {
+//         console.log('\nLivre introuvable.');
+//         return;
+//     }
 
-    console.log('\n* Entrez une nouvelle valeur ou appuyez sur <Entrée> pour conserver la valeur actuelle. *\n');
+//     let livre = tabLivres[indexLivre]
+//     afficherDetailsLivre(livre);
 
-    // Demander les nouvelles données du livre
-    let titre = question(`Titre (${livre.titre}) : `);
-    let idAuteur = parseInt(question(`idAuteur (${livre.idAuteur}): `));
-    let annee = parseInt(question(`Année (${livre.annee}): `));
-    let pages = parseInt(question(`Pages (${livre.pages}): `));
-    let categorie = question(`Catégorie (${livre.categorie}): `);
+//     console.log('\n* Entrez une nouvelle valeur ou appuyez sur <Entrée> pour conserver la valeur actuelle. *\n');
 
-    // Changer les données du livre
-    livre.titre = titre || livre.titre;
-    livre.idAuteur = idAuteur || livre.idAuteur;
-    livre.annee = annee || livre.annee;
-    livre.pages = pages || livre.pages;
-    livre.categorie = categorie || livre.categorie;
+//     // Demander les nouvelles données du livre
+//     let titre = question(`Titre (${livre.titre}) : `);
+//     let idAuteur = parseInt(question(`idAuteur (${livre.idAuteur}): `));
+//     let annee = parseInt(question(`Année (${livre.annee}): `));
+//     let pages = parseInt(question(`Pages (${livre.pages}): `));
+//     let categorie = question(`Catégorie (${livre.categorie}): `);
 
-    console.log('\nDonnées modifier avec succès');
-}
+//     // Changer les données du livre
+//     livre.titre = titre || livre.titre;
+//     livre.idAuteur = idAuteur || livre.idAuteur;
+//     livre.annee = annee || livre.annee;
+//     livre.pages = pages || livre.pages;
+//     livre.categorie = categorie || livre.categorie;
 
-//* Delete
-export const supprimerLivre = (tabLivres) => {
-    // Récupérer l'index
-    let idLivre = parseInt(question('\nId du livre à supprimer : '));
-    let indexLivre = tabLivres.findIndex((livre) => livre.id === idLivre);
+//     console.log('\nDonnées modifier avec succès');
+// }
 
-    // Si le livre n'existe pas
-    if (indexLivre === -1) {
-        console.log('\nLivre introuvable.');
-        return;
-    }
+// //* Delete
+// export const supprimerLivre = (tabLivres) => {
+//     // Récupérer l'index
+//     let idLivre = parseInt(question('\nId du livre à supprimer : '));
+//     let indexLivre = tabLivres.findIndex((livre) => livre.id === idLivre);
 
-    let livre = tabLivres[indexLivre]
-    afficherDetailsLivre(livre);
+//     // Si le livre n'existe pas
+//     if (indexLivre === -1) {
+//         console.log('\nLivre introuvable.');
+//         return;
+//     }
 
-    console.log('\nVoulez-vous vraiment supprimer ce livre ?');
+//     let livre = tabLivres[indexLivre]
+//     afficherDetailsLivre(livre);
 
-    // Confirmation du choix
-    let choix = question("\nVotre choix (O - N) : ");
-    if (choix.toUpperCase() === 'N') {
-        console.log('\nSuppression annulée');
-        return;
-    }
+//     console.log('\nVoulez-vous vraiment supprimer ce livre ?');
 
-    // Suppression du livre
-    tabLivres.splice(indexLivre, 1);
-    console.log('\nLivre supprimer avec succès');
-}
+//     // Confirmation du choix
+//     let choix = question("\nVotre choix (O - N) : ");
+//     if (choix.toUpperCase() === 'N') {
+//         console.log('\nSuppression annulée');
+//         return;
+//     }
 
-// * Fin des fonctions CRUD -
+//     // Suppression du livre
+//     tabLivres.splice(indexLivre, 1);
+//     console.log('\nLivre supprimer avec succès');
+// }
 
-// * Recherche
-export const rechercherParCategorie = (tabLivres) => {
-    let categorie = question('\nEntrez la catégorie à afficher : ');
-    let resultat = tabLivres.filter((livre) => livre.categorie.localeCompare(categorie) === 0);
-    afficherLivres(resultat, categorie);
-}
+// // * Fin des fonctions CRUD -
 
-export const rechercherParAnnee = (tabLivres) => {
-    let annee = question('\nEntrez l\'année à afficher : ');
-    let resultat = tabLivres.filter((livre) => livre.annee === parseInt(annee));
-    afficherLivres(resultat);
-}
+// // * Recherche
+// export const rechercherParCategorie = (tabLivres) => {
+//     let categorie = question('\nEntrez la catégorie à afficher : ');
+//     let resultat = tabLivres.filter((livre) => livre.categorie.localeCompare(categorie) === 0);
+//     afficherLivres(resultat, categorie);
+// }
 
-export const rechercherParAuteur = (tabLivres) => {
-    let idAuteur = question('\nEntrez l\'ID de l\'auteur à afficher : ');
-    let resultat = tabLivres.filter((livre) => livre.idAuteur === parseInt(idAuteur));
-    afficherLivres(resultat);
-}
+// export const rechercherParAnnee = (tabLivres) => {
+//     let annee = question('\nEntrez l\'année à afficher : ');
+//     let resultat = tabLivres.filter((livre) => livre.annee === parseInt(annee));
+//     afficherLivres(resultat);
+// }
 
-// * Autres -
+// export const rechercherParAuteur = (tabLivres) => {
+//     let idAuteur = question('\nEntrez l\'ID de l\'auteur à afficher : ');
+//     let resultat = tabLivres.filter((livre) => livre.idAuteur === parseInt(idAuteur));
+//     afficherLivres(resultat);
+// }
 
-// Trouver le prochain Id
-export const trouverProchainId = (tabLivres) => { return tabLivres[tabLivres.length - 1].id + 1 }
+// // * Autres -
 
-// Afficher les informations d'un seul livre
-const afficherDetailsLivre = (livre) => {
-    console.log("\nInformations du livre :");
-    for (let prop in livre) {
-        console.log(`${prop} : ${livre[prop]}`);
-    }
-};
+// // Trouver le prochain Id
+// export const trouverProchainId = (tabLivres) => { return tabLivres[tabLivres.length - 1].id + 1 }
+
+// // Afficher les informations d'un seul livre
+// const afficherDetailsLivre = (livre) => {
+//     console.log("\nInformations du livre :");
+//     for (let prop in livre) {
+//         console.log(`${prop} : ${livre[prop]}`);
+//     }
+// };

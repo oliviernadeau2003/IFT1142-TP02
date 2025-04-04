@@ -33,13 +33,15 @@ const reqLAfficherParCateg = async () => {
 }
 
 const reqSupprimerLivre = async (idLivre) => {
-    console.log("HELLO WORLD");
     const url = `/json/supprimer/:${idLivre}`;
     try {
         const reponse = await fetch(url);
         if (reponse.ok) {
             alert("Suppression effectuée.")
+            // Hide the toast after successful deletion
             const ToastConfirmation = document.getElementById('ToastConfirmation');
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(ToastConfirmation);
+            toastBootstrap.hide();
         } else {
             alert("Erreur lors de la suppression.")
             throw new Exception("Problème de chargement des Livres!");
