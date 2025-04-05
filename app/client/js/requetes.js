@@ -3,7 +3,7 @@
 //* - Fonctions CRUD -
 
 //* Create
-
+const reqAjouterLivre = async () => { }
 
 //* Read
 const reqListeLivre = async () => {
@@ -41,10 +41,11 @@ const reqLAfficherParCateg = async () => {
 }
 
 //* Update
+const reqUpdateLivre = async () => {
 
+}
 
 function validerFormLivre() { }
-
 
 //* Delete
 const reqSupprimerLivre = async (idLivre) => {
