@@ -37,6 +37,10 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/app/client/index.html");
 });
 
+
+
+// * - CRUD -
+
 //* Create
 app.post("/json/livres/ajouter", upload.single('pochette'), (req, res) => {
   try {

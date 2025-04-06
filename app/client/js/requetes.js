@@ -2,9 +2,6 @@
 
 //* - Fonctions CRUD -
 
-//* Create
-const reqAjouterLivre = async () => { }
-
 //* Read
 const reqListeLivre = async () => {
     const url = "/json/livres";
@@ -41,18 +38,35 @@ const reqLAfficherParCateg = async () => {
     const posChoisie = selCategs.selectedIndex;
     const optionChoisie = selCategs.options[posChoisie].text;
 
-    const url = `/json/livres/categorie/${optionChoisie.toString()}`;
-    try {
-        const reponse = await fetch(url);
-        if (reponse.ok) {
-            const listeLivres = await reponse.json();
-            afficherLivreParCategorie(listeLivres);
-        } else {
-            throw new Exception("Problème de chargement des Livres!");
-        }
-    } catch (e) {
-        alert(e.message);
+    console.log(optionChoisie);
+    switch (optionChoisie) {
+        case "Année":
+
+            break;
+        case "Auteur":
+
+            break;
+        case "Catégorie":
+
+            break;
+
+        default:
+            alert("Erreur lors de la sélection.")
+            break;
     }
+
+    // const url = `/json/livres/categorie/${optionChoisie.toString()}`;
+    // try {
+    //     const reponse = await fetch(url);
+    //     if (reponse.ok) {
+    //         const listeLivres = await reponse.json();
+    //         afficherLivreParCategorie(listeLivres);
+    //     } else {
+    //         throw new Exception("Problème de chargement des Livres!");
+    //     }
+    // } catch (e) {
+    //     alert(e.message);
+    // }
 }
 
 //* Update

@@ -36,19 +36,18 @@
                                 data-bs-target="#idModalAjouterLivre">[<i class="bi bi-plus"></i>Ajouter]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" onClick="reqListeLivre();"
-                                href="#">Rechercher</a>
+                            <a class="nav-link active" aria-current="page" href="">Rechercher</a>
                         </li>
                         <li class="nav-item">
                             <select class="form-select" id="selCategs" name="selCategs"
                                 onChange="reqLAfficherParCateg();">
-                                <option selected>Catégorie</option>
                                 <option>Année</option>
                                 <option>Auteur</option>
+                                <option selected>Catégorie</option>
                             </select>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Trier</a>
+                            <a class="nav-link active" aria-current="page" href="">Trier</a>
                         </li>
                     </ul>
                 </div>
@@ -187,6 +186,9 @@
             </div>
 
             <!-- Fin du modal modifier un livre -->
+
+            <!-- Modal pour sélectionner la catégorie -->
+            <!-- Fin modal pour sélectionner la catégorie -->
 
         </main>
     </body>
