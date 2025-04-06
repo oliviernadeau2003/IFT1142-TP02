@@ -9,15 +9,6 @@
     ],
     "livres": [
         {
-            "id": 1,
-            "titre": "Une aventure d'Astérix le gaulois. Le devin",
-            "idAuteur": 11,
-            "annee": 1972,
-            "pages": 48,
-            "categorie": "bandes dessinées",
-            "pochette": "Une aventure d'Astérix le gaulois. Le devin.jpg"
-        },
-        {
             "id": 2,
             "titre": "Le Seigneur des Anneaux. La Communauté de l'Anneau",
             "idAuteur": 22,
@@ -34,15 +25,6 @@
             "pages": 320,
             "categorie": "fantasy",
             "pochette": "Harry Potter à l'école des sorciers.jpg"
-        },
-        {
-            "id": 4,
-            "titre": "Les Misérables",
-            "idAuteur": 44,
-            "annee": 1862,
-            "pages": 1463,
-            "categorie": "classique",
-            "pochette": "Les Misérables.jpg"
         },
         {
             "id": 5,
@@ -97,14 +79,6 @@
             "pages": 704,
             "categorie": "science-fiction",
             "pochette": "Dune.jpg"
-        },
-        {
-            "id": 99,
-            "titre": "11",
-            "idAuteur": "11",
-            "annee": "11",
-            "pages": "111",
-            "categorie": "11"
         }
     ]
 }

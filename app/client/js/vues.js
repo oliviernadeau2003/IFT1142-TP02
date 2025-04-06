@@ -15,10 +15,10 @@ const creerCard = (livre) => {
                 </div>
 
                 <div class="d-flex flex-row gap-2 mx-2 justify-content-around my-3">
-                    <a href="" class="edit-button" data-bs-toggle="modal" data-bs-target="#idModalModifierLivre"><i
-                            class="bi bi-pencil"></i></a>
-                    <button class="delete-button" id="liveToastBtn" onclick="afficherToastConfirmation(${livre.id})"><i
-                            class="bi bi-trash3"></i></button>
+                    <button class="edit-button" id="updateLivrebtn" onclick="afficherModalModifier(${livre.id})">
+                    <i class="bi bi-pencil"></i></button>
+                    <button class="delete-button" id="liveToastBtn" onclick="afficherToastConfirmation(${livre.id})">
+                    <i class="bi bi-trash3"></i></button>
                 </div>
 
             </div>
@@ -68,6 +68,22 @@ const afficherToastConfirmation = (idLivre) => {
     const toastBootstrap = bootstrap.Toast.getOrCreateInstance(ToastConfirmation);
     toastBootstrap.show();
 };
+
+const afficherModalModifier = (idLivre) => {
+
+
+    // Remplire les champs avec les données du livre
+    document.getElementById('update_livreId').value = idLivre;
+    document.getElementById('update_titre').value = livre.titre;
+    document.getElementById('update_idAuteur').value = livre.idAuteur;
+    document.getElementById('update_annee').value = livre.annee;
+    document.getElementById('update_pages').value = livre.pages;
+    document.getElementById('update_categorie').value = livre.categorie;
+
+    // Ouvrir le modal
+    const modal = new bootstrap.Modal(document.getElementById('idModalModifierLivre'));
+    modal.show();
+}
 
 const capitalize = (str) => {
     if (!str) return '';

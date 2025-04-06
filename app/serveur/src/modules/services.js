@@ -32,10 +32,33 @@ function ajouterLivre(nouveauLivre) {
 }
 
 //* Read
+function getLivre(idLivre) {
+    // Trouver l'index du livre
+    const indexLivre = tabLivres.findIndex(livre => livre.id === parseInt(idLivre));
 
+    return tabLivres[indexLivre];
+}
 
 //* Update
+function modifierLivre(idLivre, updatedData) {
+    // Trouver l'index du livre à mettre à jour
+    const indexLivre = tabLivres.findIndex(livre => livre.id === parseInt(idLivre));
 
+    if (indexLivre === -1) {
+        throw new Error("Livre introuvable");
+    }
+
+    // Mettre à jour les propriétés du livre
+    const livreExist = tabLivres[indexLivre];
+    const updatedLivre = { ...livreExist, ...updatedData }; // Combine les données existantes avec les nouvelles données
+
+    // Remplacer l'ancien livre par le nouveau livre modifié
+    tabLivres[indexLivre] = updatedLivre;
+
+    // Sauvegarder les modifications dans le fichier JSON
+    sauvegarder();
+    console.log('Livre modifié avec succès.');
+}
 
 //* Delete
 function supprimerLivre(idLivre) {
@@ -50,5 +73,15 @@ function supprimerLivre(idLivre) {
     console.log('\nLivre supprimé avec succès.');
 }
 
+//* Autres
 
-module.exports = { ajouterLivre, supprimerLivre };
+function getNextId() {
+    // Trouver l'ID le plus élevé dans la liste des livres
+    const ids = tabLivres.map(livre => livre.id); // Extraire tous les IDs des livres
+    const maxId = ids.length > 0 ? Math.max(...ids) : 0; // Trouver l'ID maximum ou 0 si aucun livre
+
+    // Le prochain ID est simplement l'ID maximum + 1
+    return maxId + 1;
+}
+
+module.exports = { getLivre, ajouterLivre, supprimerLivre, modifierLivre, getNextId };

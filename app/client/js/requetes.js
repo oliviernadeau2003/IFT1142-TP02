@@ -41,8 +41,20 @@ const reqLAfficherParCateg = async () => {
 }
 
 //* Update
-const reqUpdateLivre = async () => {
-
+const reqUpdateLivre = async (idLivre) => {
+    const url = `/json/livres/update/${idLivre}`;
+    try {
+        const reponse = await fetch(url);
+        if (reponse.ok) {
+            alert("Modification effectuée.")
+            reqListeLivre();
+        } else {
+            alert("Erreur lors de la modification.")
+            throw new Exception("Problème de chargement des Livres!");
+        }
+    } catch (e) {
+        alert(e.message);
+    }
 }
 
 function validerFormLivre() {

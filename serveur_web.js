@@ -4,7 +4,7 @@ const path = require("path");
 const express = require("express");
 // const bodyParser = require("body-parser"); //! DO NOT SUPPORT FILE ENCODE
 const multer = require("multer");
-const { ajouterLivre, supprimerLivre } = require("./app/serveur/src/modules/services");
+const { getLivre, ajouterLivre, supprimerLivre, modifierLivre, getNextId } = require("./app/serveur/src/modules/services");
 
 const app = express();
 const port = 3000;
@@ -39,19 +39,23 @@ app.get("/", (req, res) => {
 
 //* Create
 app.post("/json/livres/ajouter", upload.single('pochette'), (req, res) => {
-  const nouveauLivre = {
-    id: 99,
-    titre: req.body.titre,
-    idAuteur: parseInt(req.body.idAuteur),
-    annee: parseInt(req.body.annee),
-    pages: parseInt(req.body.pages),
-    categorie: req.body.categorie,
-    pochette: req.body.pochette
+  try {
+    const nouveauLivre = {
+      id: getNextId(),
+      titre: req.body.titre,
+      idAuteur: parseInt(req.body.idAuteur),
+      annee: parseInt(req.body.annee),
+      pages: parseInt(req.body.pages),
+      categorie: req.body.categorie,
+      pochette: req.file ? req.file.filename : null  // Si aucun fichier n'est téléchargé, on laisse la pochette à null
+    }
+
+    ajouterLivre(nouveauLivre)
+
+    res.status(201).end();
+  } catch (err) {
+    res.status(404).json("Erreur lors de la création.");
   }
-
-  ajouterLivre(nouveauLivre)
-
-  res.status(200).end();
 });
 
 // * Read
@@ -61,11 +65,36 @@ app.get("/json/livres", (req, res) => {
   res.sendFile(__dirname + "/app/serveur/donnees/livres.json");
 });
 
+app.get("/json/livres/:idLivre", (req, res) => {
+  try {
+    res.status(200).json(getLivre(req.params.idLivre));
+  } catch (err) {
+    res.status(404).end();
+  }
+});
+
 app.get("/livres/pochettes/:idLivre", (req, res) => {
   res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.idLivre}`);
 });
 
 //* Update
+app.post("/json/livres/update/:idLivre", (req, res) => {
+  try {
+    const nouvelleDonnee = {
+      titre: req.body.titre,
+      idAuteur: parseInt(req.body.idAuteur),
+      annee: parseInt(req.body.annee),
+      pages: parseInt(req.body.pages),
+      categorie: req.body.categorie,
+      pochette: req.file ? req.file.filename : null  // Si aucun fichier n'est téléchargé, on laisse la pochette à null
+    };
+
+    modifierLivre(req.params.idLivre, nouvelleDonnee);
+    res.status(200).end();
+  } catch (err) {
+    res.status(404).json("Erreur lors de la mise a jour du livre.");
+  }
+})
 
 //* Supprimer
 app.get("/json/livres/supprimer/:idLivre", (req, res) => {

@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
         <title>TP02 - Olivier Nadeau</title>
         <link rel="stylesheet" href="utilitaires/bootstrap-5.3.3-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="utilitaires/bootstrap-icons-1.11.3/font/bootstrap-icons.css">
@@ -144,31 +145,36 @@
                         <div class="modal-body">
                             <form class="row" method="POST" action="" enctype="multipart/form-data"
                                 onSubmit="return validerFormLivre();">
+                                <input type="hidden" id="update_livreId" name="livreId">
                                 <div class="col-md-12">
                                     <label for="titre" class="form-label">Titre</label>
-                                    <input type="text" class="form-control is-valid" id="titre" name="titre" required>
+                                    <input type="text" class="form-control is-valid" id="update_titre" name="titre"
+                                        required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="idAuteur" class="form-label">ID Auteur</label>
-                                    <input type="number" class="form-control is-valid" id="idAuteur" name="idAuteur"
-                                        required>
+                                    <input type="number" class="form-control is-valid" id="update_idAuteur"
+                                        name="idAuteur" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="annee" class="form-label">Année</label>
-                                    <input type="number" class="form-control is-valid" id="annee" name="annee" required>
+                                    <input type="number" class="form-control is-valid" id="update_annee" name="annee"
+                                        required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="pages" class="form-label">Nombre de pages</label>
-                                    <input type="number" class="form-control is-valid" id="pages" name="pages" required>
+                                    <input type="number" class="form-control is-valid" id="update_pages" name="pages"
+                                        required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="categorie" class="form-label">Catégorie</label>
-                                    <input type="text" class="form-control is-valid" id="categorie" name="categorie"
-                                        required>
+                                    <input type="text" class="form-control is-valid" id="update_categorie"
+                                        name="categorie" required>
                                 </div>
                                 <div class="col-md-12">
                                     <label for="pochette" class="form-label">Pochette</label>
-                                    <input type="file" class="form-control is-valid" id="pochette" name="pochette">
+                                    <input type="file" class="form-control is-valid" id="update_pochette"
+                                        name="pochette">
                                 </div>
                                 <br>
                                 <div class="col-12 btn-enreg mt-3">
