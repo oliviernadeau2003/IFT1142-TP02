@@ -40,7 +40,7 @@
                         </li>
                         <li class="nav-item">
                             <select class="form-select" id="selCategs" name="selCategs"
-                                onChange="reqLAfficherParCateg();">
+                                onChange="afficherModalRechParCateg();">
                                 <option>Année</option>
                                 <option>Auteur</option>
                                 <option selected>Catégorie</option>
@@ -187,7 +187,27 @@
 
             <!-- Fin du modal modifier un livre -->
 
-            <!-- Modal pour sélectionner la catégorie -->
+            <div id="modalSelectionCategorie" class="modal fade" tabindex="-1" aria-labelledby="modalSelectionCategorie"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Veuillez sélectionner la catégorie</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <select name="categorie" id="modalCategorie"></select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"
+                                onclick="reqAfficherParCateg()">Enregistrer</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Fin modal pour sélectionner la catégorie -->
 
         </main>

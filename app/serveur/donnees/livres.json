@@ -9,6 +9,15 @@
     ],
     "livres": [
         {
+            "id": 1,
+            "titre": "Une aventure d'Astérix le gaulois. Le devin",
+            "idAuteur": 11,
+            "annee": 1972,
+            "pages": 48,
+            "categorie": "bandes dessinées",
+            "pochette": "Une aventure d'Astérix le gaulois. Le devin.jpg"
+        },
+        {
             "id": 2,
             "titre": "Le Seigneur des Anneaux. La Communauté de l'Anneau",
             "idAuteur": 22,
@@ -27,6 +36,15 @@
             "pochette": "Harry Potter à l'école des sorciers.jpg"
         },
         {
+            "id": 4,
+            "titre": "Les Misérables",
+            "idAuteur": 44,
+            "annee": 1862,
+            "pages": 1463,
+            "categorie": "classique",
+            "pochette": "Les Misérables.jpg"
+        },
+        {
             "id": 5,
             "titre": "Le Petit Prince",
             "idAuteur": 55,
@@ -38,10 +56,10 @@
         {
             "id": 6,
             "titre": "1984",
-            "idAuteur": 662233,
-            "annee": 19492233,
-            "pages": 32833,
-            "categorie": "science-fiction32",
+            "idAuteur": 66,
+            "annee": 1949,
+            "pages": 328,
+            "categorie": "science-fiction",
             "pochette": "1984.jpg"
         },
         {

@@ -32,6 +32,14 @@ const creerCard = (livre) => {
 //     }
 // }
 
+const afficherModalRechParCateg = () => {
+    const selCategs = document.getElementById("selCategs");
+    const posChoisie = selCategs.selectedIndex;
+    const optionChoisie = selCategs.options[posChoisie].text;
+
+    $('#modalSelectionCategorie').modal('show')
+}
+
 const afficherLivresParCards = (donneesLivres) => {
     const categs = donneesLivres.categories;
     // creerSelectCategories(categs);

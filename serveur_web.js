@@ -5,6 +5,7 @@ const express = require("express");
 // const bodyParser = require("body-parser"); //! DO NOT SUPPORT FILE ENCODE
 const multer = require("multer");
 const { getLivre, ajouterLivre, supprimerLivre, modifierLivre, getNextId } = require("./app/serveur/src/modules/services");
+const { AsyncLocalStorage } = require("async_hooks");
 
 const app = express();
 const port = 3000;
@@ -14,6 +15,7 @@ serveur.listen(port, () => {
 });
 
 app.use(express.static(__dirname + "/app/client")); //to get also css, js, images, ...
+
 
 const destination = __dirname + "/app/serveur/pochettes/";
 //* Créer un storage personnalisé
@@ -32,11 +34,12 @@ const storage = multer.diskStorage({
 // Lier le storage à multer
 const upload = multer({ storage: storage });
 
+
+
 // ********************* GESTION DES ROUTES ************************
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/app/client/index.html");
 });
-
 
 
 // * - CRUD -
@@ -54,7 +57,7 @@ app.post("/json/livres/ajouter", upload.single('pochette'), (req, res) => {
       pochette: req.file ? req.file.filename : null  // Si aucun fichier n'est téléchargé, on laisse la pochette à null
     }
 
-    ajouterLivre(nouveauLivre)
+    ajouterLivre(nouveauLivre);
 
     res.status(201).end();
   } catch (err) {
@@ -78,7 +81,11 @@ app.get("/json/livres/:idLivre", (req, res) => {
 });
 
 app.get("/livres/pochettes/:idLivre", (req, res) => {
-  res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.idLivre}`);
+  try {
+    res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.idLivre}`);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 //* Update

@@ -6,10 +6,11 @@ const path = require('path');
 const dataPath = path.join(__dirname, '../../donnees/livres.json');
 let data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 let tabLivres = data.livres;
+let tabCategories = data.categories;
 
 // Update json data file
 function sauvegarder() {
-    fs.writeFileSync(dataPath, JSON.stringify({ categories: data.categories, livres: tabLivres }, null, 4), 'utf8');
+    fs.writeFileSync(dataPath, JSON.stringify({ categories: tabCategories, livres: tabLivres }, null, 4), 'utf8');
 }
 
 //* - Fonctions CRUD -
@@ -20,6 +21,11 @@ function ajouterLivre(nouveauLivre) {
     let existeDeja = tabLivres.some(livre => livre.id === nouveauLivre.id);
     if (existeDeja) {
         throw new Error("Un livre avec cet ID existe déjà.");
+    }
+
+    let categorieExiste = tabCategories.some(categorie => categorie === nouveauLivre.categorie)
+    if (!categorieExiste) {
+        tabCategories.push(nouveauLivre.categorie.toLowerCase())
     }
 
     // Ajouter le livre dans le tableau
@@ -65,6 +71,19 @@ function supprimerLivre(idLivre) {
 
     if (indexLivre === -1) {
         throw new Error("Livre Introuvable");
+    }
+
+    // Récupérer la catégorie du livre à supprimer
+    const categorieASupprimer = tabLivres[indexLivre].categorie;
+    // Vérifier s'il reste des livres avec la même catégorie
+    const livreAvecCategorie = tabLivres.some((livre) => livre.categorie.toLowerCase() === categorieASupprimer && livre.id !== parseInt(idLivre));
+
+    // Si aucun livre n'a cette catégorie, supprimer la catégorie de tabCategories
+    if (!livreAvecCategorie) {
+        const indexCategorie = tabCategories.findIndex(categorie => categorie === categorieASupprimer);
+        if (indexCategorie !== -1) {
+            tabCategories.splice(indexCategorie, 1);  // Supprimer la catégorie de tabCategories
+        }
     }
 
     tabLivres.splice(indexLivre, 1);

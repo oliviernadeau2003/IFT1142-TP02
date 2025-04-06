@@ -33,12 +33,8 @@ const reqGetLivre = async (id) => {
     }
 }
 
-const reqLAfficherParCateg = async () => {
-    const selCategs = document.getElementById("selCategs");
-    const posChoisie = selCategs.selectedIndex;
-    const optionChoisie = selCategs.options[posChoisie].text;
+const reqAfficherParCateg = async () => {
 
-    console.log(optionChoisie);
     switch (optionChoisie) {
         case "Année":
 
