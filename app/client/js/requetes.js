@@ -21,6 +21,21 @@ const reqListeLivre = async () => {
     }
 }
 
+const reqGetLivre = async (id) => {
+    const url = `/json/livres/${id}`;
+    try {
+        const reponse = await fetch(url);
+        if (reponse.ok) {
+            const donneesLivre = await reponse.json();
+            return donneesLivre;
+        } else {
+            throw new Exception("Problème de chargement des livres!");
+        }
+    } catch (e) {
+        alert(e.message);
+    }
+}
+
 const reqLAfficherParCateg = async () => {
     const selCategs = document.getElementById("selCategs");
     const posChoisie = selCategs.selectedIndex;

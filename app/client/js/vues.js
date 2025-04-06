@@ -69,8 +69,8 @@ const afficherToastConfirmation = (idLivre) => {
     toastBootstrap.show();
 };
 
-const afficherModalModifier = (idLivre) => {
-
+const afficherModalModifier = async (idLivre) => {
+    const livre = await reqGetLivre(idLivre);
 
     // Remplire les champs avec les données du livre
     document.getElementById('update_livreId').value = idLivre;

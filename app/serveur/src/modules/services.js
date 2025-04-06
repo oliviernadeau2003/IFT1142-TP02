@@ -35,7 +35,6 @@ function ajouterLivre(nouveauLivre) {
 function getLivre(idLivre) {
     // Trouver l'index du livre
     const indexLivre = tabLivres.findIndex(livre => livre.id === parseInt(idLivre));
-
     return tabLivres[indexLivre];
 }
 

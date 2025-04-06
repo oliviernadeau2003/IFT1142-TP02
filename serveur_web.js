@@ -78,18 +78,19 @@ app.get("/livres/pochettes/:idLivre", (req, res) => {
 });
 
 //* Update
-app.post("/json/livres/update/:idLivre", (req, res) => {
+app.post("/json/livres/update", upload.single('pochette'), (req, res) => {
   try {
     const nouvelleDonnee = {
       titre: req.body.titre,
       idAuteur: parseInt(req.body.idAuteur),
       annee: parseInt(req.body.annee),
       pages: parseInt(req.body.pages),
-      categorie: req.body.categorie,
-      pochette: req.file ? req.file.filename : null  // Si aucun fichier n'est téléchargé, on laisse la pochette à null
+      categorie: req.body.categorie
     };
 
-    modifierLivre(req.params.idLivre, nouvelleDonnee);
+    if (req.file) nouvelleDonnee.pochette = req.file.filename
+
+    modifierLivre(req.body.id, nouvelleDonnee);
     res.status(200).end();
   } catch (err) {
     res.status(404).json("Erreur lors de la mise a jour du livre.");
