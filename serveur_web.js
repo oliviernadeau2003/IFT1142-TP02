@@ -1,8 +1,10 @@
 // ********************* CRÉATION DU SERVEUR NODE ************************
 const http = require("http");
+const path = require("path");
 const express = require("express");
-const bodyParser = require("body-parser");
-const { supprimerLivre } = require("./app/serveur/src/modules/services");
+// const bodyParser = require("body-parser"); //! DO NOT SUPPORT FILE ENCODE
+const multer = require("multer");
+const { ajouterLivre, supprimerLivre } = require("./app/serveur/src/modules/services");
 
 const app = express();
 const port = 3000;
@@ -12,9 +14,23 @@ serveur.listen(port, () => {
 });
 
 app.use(express.static(__dirname + "/app/client")); //to get also css, js, images, ...
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.text()); // support text encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+const destination = __dirname + "/app/serveur/pochettes/";
+//* Créer un storage personnalisé
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, destination); // Dossier de destination
+  },
+  filename: (req, file, cb) => {
+    // Génère un nom de fichier avec le titre + extension d’origine
+    const ext = path.extname(file.originalname);
+    const safeTitle = req.body.titre.replace(/[^a-z0-9]/gi, '_').toLowerCase(); // nettoyage simple du titre
+    cb(null, `${safeTitle}${ext}`);
+  }
+});
+
+// Lier le storage à multer
+const upload = multer({ storage: storage });
 
 // ********************* GESTION DES ROUTES ************************
 app.get("/", (req, res) => {
@@ -22,34 +38,37 @@ app.get("/", (req, res) => {
 });
 
 //* Create
-app.get("/json/ajouter", (req, res) => {
-
-  const newLivre = {
-    id: 1,
-    titre: "Une aventure d'Astérix le gaulois. Le devin",
-    idAuteur: 11,
-    annee: 1972,
-    pages: 48,
-    categorie: "bandes dessinées",
-    pochette: "Une aventure d'Astérix le gaulois. Le devin.jpg"
+app.post("/json/livres/ajouter", upload.single('pochette'), (req, res) => {
+  const nouveauLivre = {
+    id: 99,
+    titre: req.body.titre,
+    idAuteur: parseInt(req.body.idAuteur),
+    annee: parseInt(req.body.annee),
+    pages: parseInt(req.body.pages),
+    categorie: req.body.categorie,
+    pochette: req.body.pochette
   }
+
+  ajouterLivre(nouveauLivre)
+
+  res.status(200).end();
 });
 
 // * Read
-app.get("/json", (req, res) => {
+app.get("/json/livres", (req, res) => {
   res.header("Content-type", "application/json");
   res.header("Charset", "utf8");
   res.sendFile(__dirname + "/app/serveur/donnees/livres.json");
 });
 
-app.get("/pochettes/:idLivre", (req, res) => {
+app.get("/livres/pochettes/:idLivre", (req, res) => {
   res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.idLivre}`);
 });
 
 //* Update
 
 //* Supprimer
-app.get("/json/supprimer/:idLivre", (req, res) => {
+app.get("/json/livres/supprimer/:idLivre", (req, res) => {
   try {
     supprimerLivre(req.params.idLivre);
     res.status(200).end();

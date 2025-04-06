@@ -7,7 +7,7 @@ const reqAjouterLivre = async () => { }
 
 //* Read
 const reqListeLivre = async () => {
-    const url = "/json";
+    const url = "/json/livres";
     try {
         const reponse = await fetch(url);
         if (reponse.ok) {
@@ -26,7 +26,7 @@ const reqLAfficherParCateg = async () => {
     const posChoisie = selCategs.selectedIndex;
     const optionChoisie = selCategs.options[posChoisie].text;
 
-    const url = `/json/:${optionChoisie.toString()}`;
+    const url = `/json/livres/categorie/${optionChoisie.toString()}`;
     try {
         const reponse = await fetch(url);
         if (reponse.ok) {
@@ -45,11 +45,13 @@ const reqUpdateLivre = async () => {
 
 }
 
-function validerFormLivre() { }
+function validerFormLivre() {
+    return true;
+}
 
 //* Delete
 const reqSupprimerLivre = async (idLivre) => {
-    const url = `/json/supprimer/${idLivre}`;
+    const url = `/json/livres/supprimer/${idLivre}`;
     try {
         const reponse = await fetch(url);
         if (reponse.ok) {

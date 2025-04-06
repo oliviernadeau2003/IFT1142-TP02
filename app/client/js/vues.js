@@ -3,7 +3,7 @@ const creerCard = (livre) => {
         <div class="card" style="width: 18rem;">
                 <h4>${livre.titre}</h4>
                 <hr>
-                <img src="http://localhost:3000/pochettes/${livre.pochette}"></img>
+                <img src="http://localhost:3000/livres/pochettes/${livre.pochette}"></img>
 
                 <div class="container">
                     <hr>
