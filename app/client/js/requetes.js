@@ -112,13 +112,12 @@ const reqUpdateLivre = async (idLivre) => {
     }
 }
 
-function validerFormLivre() {
+async function validerFormLivre(type) {
     const titre = document.getElementById("titre").value.trim();
     const idAuteur = document.getElementById("idAuteur").value.trim();
     const annee = document.getElementById("annee").value.trim();
     const pages = document.getElementById("pages").value.trim();
     const categorie = document.getElementById("categorie").value.trim();
-    const pochette = document.getElementById("pochette").value;
 
     let erreurs = [];
     // Vérifie que tous les champs obligatoires sont remplis
@@ -130,7 +129,6 @@ function validerFormLivre() {
 
     if (erreurs.length > 0) {
         alert("Erreur(s) dans le formulaire :\n\n" + erreurs.join("\n"));
-        return false;
     }
 
     return true;
