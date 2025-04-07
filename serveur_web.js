@@ -4,8 +4,7 @@ const path = require("path");
 const express = require("express");
 // const bodyParser = require("body-parser"); //! DO NOT SUPPORT FILE ENCODE
 const multer = require("multer");
-const { getLivre, ajouterLivre, supprimerLivre, modifierLivre, getNextId } = require("./app/serveur/src/modules/services");
-const { AsyncLocalStorage } = require("async_hooks");
+const { getLivre, getLivreParCategorie, ajouterLivre, supprimerLivre, modifierLivre, getNextId, getCategories } = require("./app/serveur/src/modules/services");
 
 const app = express();
 const port = 3000;
@@ -66,10 +65,20 @@ app.post("/json/livres/ajouter", upload.single('pochette'), (req, res) => {
 });
 
 // * Read
+// Livres
 app.get("/json/livres", (req, res) => {
   res.header("Content-type", "application/json");
   res.header("Charset", "utf8");
   res.sendFile(__dirname + "/app/serveur/donnees/livres.json");
+});
+
+// Categories
+app.get("/json/livres/categories", (req, res) => {
+  try {
+    res.status(200).json(getCategories());
+  } catch (err) {
+    res.status(404).end();
+  }
 });
 
 app.get("/json/livres/:idLivre", (req, res) => {
@@ -85,6 +94,33 @@ app.get("/livres/pochettes/:idLivre", (req, res) => {
     res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.idLivre}`);
   } catch (err) {
     console.log(err);
+  }
+});
+
+// Categorie
+app.get("/json/livres/categorie/:categorie", (req, res) => {
+  try {
+    res.status(200).json({ livres: getLivreParCategorie("categorie", req.params.categorie) });
+  } catch (err) {
+    res.status(404).end();
+  }
+});
+
+// Auteurs
+app.get("/json/livres/auteur/:idAuteur", (req, res) => {
+  try {
+    res.status(200).json({ livres: getLivreParCategorie("auteur", req.params.idAuteur) });
+  } catch (err) {
+    res.status(404).end();
+  }
+});
+
+// Année
+app.get("/json/livres/annee/:annee", (req, res) => {
+  try {
+    res.status(200).json({ livres: getLivreParCategorie("annee", req.params.annee) });
+  } catch (err) {
+    res.status(404).end();
   }
 });
 

@@ -44,6 +44,24 @@ function getLivre(idLivre) {
     return tabLivres[indexLivre];
 }
 
+function getLivreParCategorie(type, params) {
+    let data;
+    switch (type) {
+        case "categorie":
+            data = tabLivres.filter((livre) => livre.categorie === params);
+            break;
+        case "auteur":
+            data = tabLivres.filter((livre) => livre.idAuteur === parseInt(params));
+            break;
+        case "annee":
+            data = tabLivres.filter((livre) => livre.annee > parseInt(params));
+            break;
+        default:
+            throw new Error("Type non supporté.")
+    }
+    return data;
+}
+
 //* Update
 function modifierLivre(idLivre, updatedData) {
     // Trouver l'index du livre à mettre à jour
@@ -102,4 +120,8 @@ function getNextId() {
     return maxId + 1;
 }
 
-module.exports = { getLivre, ajouterLivre, supprimerLivre, modifierLivre, getNextId };
+function getCategories() {
+    return tabCategories;
+}
+
+module.exports = { getLivre, getLivreParCategorie, ajouterLivre, supprimerLivre, modifierLivre, getNextId, getCategories };

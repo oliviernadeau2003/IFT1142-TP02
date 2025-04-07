@@ -32,16 +32,38 @@ const creerCard = (livre) => {
 //     }
 // }
 
-const afficherModalRechParCateg = () => {
+const afficherModalRechParCateg = async () => {
     const selCategs = document.getElementById("selCategs");
     const posChoisie = selCategs.selectedIndex;
     const optionChoisie = selCategs.options[posChoisie].text;
 
-    $('#modalSelectionCategorie').modal('show')
+    if (optionChoisie === "Catégorie") {
+        $("#modalSelectionCategorieHeader").text("Veuillez entrer la catégorie");
+        $("#modalSelectionCategorieBody").html(`<select name="categorie" id="modalChoixCateg"></select>`);
+        $("#modalChoixCateg").append(await creeOptionCategorie());
+    } else if (optionChoisie === "Auteur") {
+        $("#modalSelectionCategorieHeader").text("Veuillez entrer l'id de l'auteur");
+        $("#modalSelectionCategorieBody").html(`<input type="text" id="modalSelectionChoixCateg">`);
+    } else if (optionChoisie === "Année") {
+        $("#modalSelectionCategorieHeader").text("Veuillez entrer l'année");
+        $("#modalSelectionCategorieBody").html(`<input type="text" id="modalSelectionChoixCateg">`);
+    }
+
+    $('#modalSelectionCategorie').modal('show');
+}
+
+const creeOptionCategorie = async () => {
+    let listeCategorie = await reqListeCategorie();
+
+    var options = '';
+    for (categorie of listeCategorie) {
+        options += '<option value="' + categorie + '">' + capitalize(categorie) + '</option>';
+    }
+    return options;
 }
 
 const afficherLivresParCards = (donneesLivres) => {
-    const categs = donneesLivres.categories;
+    // const categs = donneesLivres.categories;
     // creerSelectCategories(categs);
     const listeLivres = donneesLivres.livres;
     let liste = `<div class="row">`;
@@ -96,4 +118,8 @@ const afficherModalModifier = async (idLivre) => {
 const capitalize = (str) => {
     if (!str) return '';
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+const rechercher = () => {
+    $("#selCategs").trigger('change');
 }
