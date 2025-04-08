@@ -58,9 +58,9 @@ app.post("/json/livres/ajouter", upload.single('pochette'), (req, res) => {
 
     ajouterLivre(nouveauLivre);
 
-    res.status(201).end();
+    res.status(201).redirect("/");
   } catch (err) {
-    res.status(404).json("Erreur lors de la création.");
+    res.status(500).json("Erreur lors de la création.");
   }
 });
 
@@ -77,7 +77,7 @@ app.get("/json/livres/categories", (req, res) => {
   try {
     res.status(200).json(getCategories());
   } catch (err) {
-    res.status(404).end();
+    res.status(500).end();
   }
 });
 
@@ -85,7 +85,7 @@ app.get("/json/livres/:idLivre", (req, res) => {
   try {
     res.status(200).json(getLivre(req.params.idLivre));
   } catch (err) {
-    res.status(404).end();
+    res.status(500).end();
   }
 });
 
@@ -102,7 +102,7 @@ app.get("/json/livres/categorie/:categorie", (req, res) => {
   try {
     res.status(200).json({ livres: getLivreParCategorie("categorie", req.params.categorie) });
   } catch (err) {
-    res.status(404).end();
+    res.status(500).end();
   }
 });
 
@@ -111,7 +111,7 @@ app.get("/json/livres/auteur/:idAuteur", (req, res) => {
   try {
     res.status(200).json({ livres: getLivreParCategorie("auteur", req.params.idAuteur) });
   } catch (err) {
-    res.status(404).end();
+    res.status(500).end();
   }
 });
 
@@ -120,7 +120,7 @@ app.get("/json/livres/annee/:annee", (req, res) => {
   try {
     res.status(200).json({ livres: getLivreParCategorie("annee", req.params.annee) });
   } catch (err) {
-    res.status(404).end();
+    res.status(500).end();
   }
 });
 
@@ -138,18 +138,18 @@ app.post("/json/livres/update", upload.single('pochette'), (req, res) => {
     if (req.file) nouvelleDonnee.pochette = req.file.filename
 
     modifierLivre(req.body.id, nouvelleDonnee);
-    res.status(200).end();
+    res.status(200).redirect("/");
   } catch (err) {
-    res.status(404).json("Erreur lors de la mise a jour du livre.");
+    res.status(500).json("Erreur lors de la mise a jour du livre.");
   }
 })
 
 //* Supprimer
-app.get("/json/livres/supprimer/:idLivre", (req, res) => {
+app.delete("/json/livres/supprimer/:idLivre", (req, res) => {
   try {
     supprimerLivre(req.params.idLivre);
     res.status(200).end();
   } catch (err) {
-    res.status(404).end();
+    res.status(500).end();
   }
 });

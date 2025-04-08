@@ -71,17 +71,47 @@ function modifierLivre(idLivre, updatedData) {
         throw new Error("Livre introuvable");
     }
 
-    // Mettre à jour les propriétés du livre
     const livreExist = tabLivres[indexLivre];
-    const updatedLivre = { ...livreExist, ...updatedData }; // Combine les données existantes avec les nouvelles données
+    const ancienneCategorie = livreExist.categorie;
+    const nouvelleCategorie = updatedData.categorie;
 
-    // Remplacer l'ancien livre par le nouveau livre modifié
+    // Mettre à jour les propriétés du livre
+    const updatedLivre = { ...livreExist, ...updatedData };
     tabLivres[indexLivre] = updatedLivre;
+
+    // Si la catégorie a changé
+    if (ancienneCategorie && nouvelleCategorie && ancienneCategorie !== nouvelleCategorie) {
+        // Vérifier s'il reste des livres avec l'ancienne catégorie
+        const autresLivresAvecAncienneCategorie = tabLivres.some(
+            (livre, index) =>
+                livre.categorie.toLowerCase() === ancienneCategorie.toLowerCase() &&
+                index !== indexLivre
+        );
+
+        // Supprimer l'ancienne catégorie si elle n'est plus utilisée
+        if (!autresLivresAvecAncienneCategorie) {
+            const indexAncienneCategorie = tabCategories.findIndex(
+                cat => cat.toLowerCase() === ancienneCategorie.toLowerCase()
+            );
+            if (indexAncienneCategorie !== -1) {
+                tabCategories.splice(indexAncienneCategorie, 1);
+            }
+        }
+
+        // Ajouter la nouvelle catégorie si elle n'existe pas déjà
+        const nouvelleExisteDeja = tabCategories.some(
+            cat => cat.toLowerCase() === nouvelleCategorie.toLowerCase()
+        );
+        if (!nouvelleExisteDeja) {
+            tabCategories.push(nouvelleCategorie);
+        }
+    }
 
     // Sauvegarder les modifications dans le fichier JSON
     sauvegarder();
     console.log('Livre modifié avec succès.');
 }
+
 
 //* Delete
 function supprimerLivre(idLivre) {

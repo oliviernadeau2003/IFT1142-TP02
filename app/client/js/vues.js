@@ -3,7 +3,7 @@ const creerCard = (livre) => {
         <div class="card" style="width: 18rem;">
                 <h4>${livre.titre}</h4>
                 <hr>
-                <img src="http://localhost:3000/livres/pochettes/${livre.pochette}"></img>
+                <img src="http://localhost:3000/livres/pochettes/${livre?.pochette}"></img>
 
                 <div class="container">
                     <hr>
@@ -31,6 +31,17 @@ const creerCard = (livre) => {
 //         selCategs.options[selCategs.options.length] = new Option(uneCateg, uneCateg);
 //     }
 // }
+
+const afficherLivresParCards = (donneesLivres) => {
+    // const categs = donneesLivres.categories;
+    // creerSelectCategories(categs);
+    const listeLivres = donneesLivres.livres;
+    let liste = `<div class="row">`;
+    for (const livre of listeLivres) {
+        liste += creerCard(livre);
+    }
+    document.getElementById('contenu').innerHTML = liste;
+}
 
 const afficherModalRechParCateg = async () => {
     const selCategs = document.getElementById("selCategs");
@@ -60,17 +71,6 @@ const creeOptionCategorie = async () => {
         options += '<option value="' + categorie + '">' + capitalize(categorie) + '</option>';
     }
     return options;
-}
-
-const afficherLivresParCards = (donneesLivres) => {
-    // const categs = donneesLivres.categories;
-    // creerSelectCategories(categs);
-    const listeLivres = donneesLivres.livres;
-    let liste = `<div class="row">`;
-    for (const livre of listeLivres) {
-        liste += creerCard(livre);
-    }
-    document.getElementById('contenu').innerHTML = liste;
 }
 
 // const afficherLivreParCategorie = (listeLivres) => {

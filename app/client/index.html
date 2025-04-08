@@ -36,7 +36,8 @@
                                 data-bs-target="#idModalAjouterLivre">[<i class="bi bi-plus"></i>Ajouter]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" onclick="rechercher()">Rechercher</a>
+                            <a class="nav-link active hover-cursor" aria-current="page"
+                                onclick="rechercher()">Rechercher</a>
                         </li>
                         <li class="nav-item">
                             <select class="form-select" id="selCategs" name="selCategs"
@@ -47,7 +48,10 @@
                             </select>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="">Trier</a>
+                            <a class="nav-link active hover-cursor" onclick="trierParAnnee()">Trier par année</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active hover-cursor" onclick="trierParTitre()">Trier par titre</a>
                         </li>
                     </ul>
                 </div>
@@ -91,7 +95,7 @@
                         </div>
                         <div class="modal-body">
                             <form class="row" method="POST" action="/json/livres/ajouter" enctype="multipart/form-data"
-                                onSubmit="return validerFormLivre();">
+                                onSubmit="return validerFormLivre('ajouter');">
                                 <div class="col-md-12">
                                     <label for="titre" class="form-label">Titre</label>
                                     <input type="text" class="form-control is-valid" id="titre" name="titre" required>
@@ -142,8 +146,9 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <!-- PUT method does not exist in HTML -->
                             <form class="row" method="POST" action="/json/livres/update" enctype="multipart/form-data"
-                                onSubmit="return validerFormLivre();">
+                                onSubmit="return validerFormLivre('update');">
                                 <input type="hidden" id="update_livreId" name="id">
                                 <div class="col-md-12">
                                     <label for="titre" class="form-label">Titre</label>

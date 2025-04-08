@@ -1,12 +1,14 @@
 //* - Fonctions CRUD -
 
+let donneesLivres;
+
 //* Read
 const reqListeLivre = async () => {
     const url = "/json/livres";
     try {
-        const reponse = await fetch(url);
+        const reponse = await fetch(url, { method: "GET" });
         if (reponse.ok) {
-            const donneesLivres = await reponse.json();
+            donneesLivres = await reponse.json();
             afficherLivresParCards(donneesLivres);
         } else {
             throw new Exception("Problème de chargement des livres!");
@@ -19,7 +21,7 @@ const reqListeLivre = async () => {
 const reqListeCategorie = async () => {
     const url = "/json/livres/categories";
     try {
-        const reponse = await fetch(url);
+        const reponse = await fetch(url, { method: "GET" });
         if (reponse.ok) {
             return await reponse.json();
         } else {
@@ -33,10 +35,10 @@ const reqListeCategorie = async () => {
 const reqGetLivre = async (id) => {
     const url = `/json/livres/${id}`;
     try {
-        const reponse = await fetch(url);
+        const reponse = await fetch(url, { method: "GET" });
         if (reponse.ok) {
-            const donneesLivre = await reponse.json();
-            return donneesLivre;
+            donneesLivres = await reponse.json();
+            return donneesLivres;
         } else {
             throw new Exception("Problème de chargement des livres!");
         }
@@ -56,7 +58,7 @@ const reqAfficherParCateg = async () => {
             case "Année":
                 choix = $("#modalSelectionChoixCateg").val();
                 url = `/json/livres/annee/${choix}`;
-                reponse = await fetch(url);
+                reponse = await fetch(url, { method: "GET" });
 
                 if (reponse.ok) {
                     const listeLivres = await reponse.json();
@@ -66,7 +68,7 @@ const reqAfficherParCateg = async () => {
             case "Auteur":
                 choix = $("#modalSelectionChoixCateg").val();
                 url = `/json/livres/auteur/${choix}`;
-                reponse = await fetch(url);
+                reponse = await fetch(url), { method: "GET" };
 
                 if (reponse.ok) {
                     const listeLivres = await reponse.json();
@@ -76,7 +78,7 @@ const reqAfficherParCateg = async () => {
             case "Catégorie":
                 choix = $("#modalChoixCateg").val();
                 url = `/json/livres/categorie/${choix}`;
-                reponse = await fetch(url);
+                reponse = await fetch(url, { method: "GET" });
 
                 if (reponse.ok) {
                     const listeLivres = await reponse.json();
@@ -99,7 +101,7 @@ const reqAfficherParCateg = async () => {
 const reqUpdateLivre = async (idLivre) => {
     const url = `/json/livres/update/${idLivre}`;
     try {
-        const reponse = await fetch(url);
+        const reponse = await fetch(url, { method: "PUT" });
         if (reponse.ok) {
             alert("Modification effectuée.")
             reqListeLivre();
@@ -112,23 +114,33 @@ const reqUpdateLivre = async (idLivre) => {
     }
 }
 
-async function validerFormLivre(type) {
-    const titre = document.getElementById("titre").value.trim();
-    const idAuteur = document.getElementById("idAuteur").value.trim();
-    const annee = document.getElementById("annee").value.trim();
-    const pages = document.getElementById("pages").value.trim();
-    const categorie = document.getElementById("categorie").value.trim();
+function validerFormLivre(type) {
+    if (type === "ajouter") {
+        titre = document.getElementById("titre").value;
+        idAuteur = document.getElementById("idAuteur").value.trim();
+        annee = document.getElementById("annee").value.trim();
+        pages = document.getElementById("pages").value.trim();
+        categorie = document.getElementById("categorie").value.trim();
+    } else if (type === "update") {
+        titre = document.getElementById("update_titre").value.trim();
+        idAuteur = document.getElementById("update_idAuteur").value.trim();
+        annee = document.getElementById("update_annee").value.trim();
+        pages = document.getElementById("update_pages").value.trim();
+        categorie = document.getElementById("update_categorie").value.trim();
+    }
 
     let erreurs = [];
     // Vérifie que tous les champs obligatoires sont remplis
     if (titre === "") erreurs.push("Le titre est requis.");
     if (idAuteur === "" || isNaN(idAuteur) || parseInt(idAuteur) <= 0) erreurs.push("L'ID Auteur doit être un nombre positif.");
-    if (annee === "" || isNaN(annee) || parseInt(annee) < 1000 || parseInt(annee) > new Date().getFullYear());
+    if (annee === "" || isNaN(annee) || parseInt(annee) > new Date().getFullYear());
     if (pages === "" || isNaN(pages) || parseInt(pages) <= 0) erreurs.push("Le nombre de pages doit être un nombre positif.");
     if (categorie === "") erreurs.push("La catégorie est requise.");
 
+
     if (erreurs.length > 0) {
         alert("Erreur(s) dans le formulaire :\n\n" + erreurs.join("\n"));
+        return false;
     }
 
     return true;
@@ -138,10 +150,10 @@ async function validerFormLivre(type) {
 const reqSupprimerLivre = async (idLivre) => {
     const url = `/json/livres/supprimer/${idLivre}`;
     try {
-        const reponse = await fetch(url);
+        const reponse = await fetch(url, { method: "DELETE" });
         if (reponse.ok) {
             alert("Suppression effectuée.")
-            // Hide the toast after successful deletion
+            // Cacher le toast apres la suppression
             const ToastConfirmation = document.getElementById('ToastConfirmation');
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(ToastConfirmation);
             toastBootstrap.hide();
@@ -154,4 +166,15 @@ const reqSupprimerLivre = async (idLivre) => {
     } catch (err) {
         alert(err.message);
     }
+}
+
+//* Autres
+const trierParAnnee = () => {
+    let donneesLivresTrier = { livres: donneesLivres.livres.sort((a, b) => a.annee - b.annee) };
+    afficherLivresParCards(donneesLivresTrier)
+}
+
+const trierParTitre = () => {
+    let donneesLivresTrier = { livres: donneesLivres.livres.sort((a, b) => a.titre.localeCompare(b.titre)) };
+    afficherLivresParCards(donneesLivresTrier)
 }
