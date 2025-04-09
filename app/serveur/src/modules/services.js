@@ -1,5 +1,4 @@
 // Olivier Nadeau - IFT1142 Hiver 2025
-// services.js - 15 Février
 const fs = require('fs');
 const path = require('path');
 

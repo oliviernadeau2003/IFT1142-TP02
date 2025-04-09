@@ -2,8 +2,7 @@
 const http = require("http");
 const path = require("path");
 const express = require("express");
-// const bodyParser = require("body-parser"); //! DO NOT SUPPORT FILE ENCODE
-const multer = require("multer");
+const multer = require("multer"); // Utiliser pour gérer la récupération et le stockage des pochette a travers les requetes
 const { getLivre, getLivreParCategorie, ajouterLivre, supprimerLivre, modifierLivre, getNextId, getCategories } = require("./app/serveur/src/modules/services");
 
 const app = express();
@@ -13,7 +12,7 @@ serveur.listen(port, () => {
   console.log(`Serveur démarré sur le port ${port}`);
 });
 
-app.use(express.static(__dirname + "/app/client")); //to get also css, js, images, ...
+app.use(express.static(__dirname + "/app/client")); // To get also css, js, images, ...
 
 
 const destination = __dirname + "/app/serveur/pochettes/";
@@ -34,12 +33,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-
 // ********************* GESTION DES ROUTES ************************
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/app/client/index.html");
 });
-
 
 // * - CRUD -
 
@@ -81,6 +78,7 @@ app.get("/json/livres/categories", (req, res) => {
   }
 });
 
+// Get un livre par Id
 app.get("/json/livres/:idLivre", (req, res) => {
   try {
     res.status(200).json(getLivre(req.params.idLivre));
@@ -89,6 +87,7 @@ app.get("/json/livres/:idLivre", (req, res) => {
   }
 });
 
+// Get la pochette d'un livre par l'Id
 app.get("/livres/pochettes/:idLivre", (req, res) => {
   try {
     res.sendFile(__dirname + `/app/serveur/pochettes/${req.params.idLivre}`);
